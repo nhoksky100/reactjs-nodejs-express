@@ -1,0 +1,45 @@
+// menu scroll Store
+.scroll-toggle {
+    align-items: center;
+    background-color: var(--light);
+    border: 2px solid var(--dark);
+    display: flex;
+    justify-content: center;
+    margin-left: 3%;
+    width: 100%;
+    &__button {
+        display: none !important;
+        appearance: none;
+        border: 2px solid var(--dark);
+        flex: 0 0 100px;
+        margin: 10px;
+        padding: 10px;
+        position: relative;
+        transition: all 0.1s ease;
+        &:active,
+        &:hover {
+            background-color: var(--highlight);
+        }
+        &:focus {
+            outline: 2px solid var(--highlight)
+        }
+    }
+    &__list {
+        border-left: 2px solid var(--dark);
+        border-right: 2px solid var(--dark);
+        display: flex;
+        flex: 1 1 auto;
+        overflow-x: scroll;
+    }
+    &__list-item {
+        flex: 0 0 auto;
+        padding: 10px;
+        .btn-default {
+            font-size: 16px;
+        }
+    }
+}
+
+#menuScroll {
+    display: none;
+}

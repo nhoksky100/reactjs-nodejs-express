@@ -1,0 +1,25 @@
+.menu_vertical .sj-megamenu .level-1 {
+	border: 0px;
+	width: 100%;
+	border-bottom: 1px solid rgba(255,255,255,.2);
+}
+.menu_vertical .sj-megamenu .level-1 .sj-menu-left,
+.menu_vertical .sj-megamenu .level-1 .sj-menu-right {
+	top: 0;
+	border: 1px solid rgba(0,0,0,0.07);
+}
+.menu_vertical .sj-megamenu-parent >li.sj-has-child>a {
+	position: relative;
+}
+.sambar.layout1 .menu_vertical .sj-megamenu-parent > li.sj-has-child > a:after {
+	position: absolute;
+	content: "\f105";
+	right: 20px;
+}
+
+.sambar.layout2 .menu_vertical .sj-megamenu-parent > li.sj-has-child> a:after{
+	content: "\f104";
+	position: absolute;
+	left: 20px;
+}
+

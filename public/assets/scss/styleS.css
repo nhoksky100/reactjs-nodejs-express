@@ -1,0 +1,54 @@
+.scroll-toggle {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: var(--light);
+  border: 2px solid var(--dark);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: 3%;
+  width: 100%; }
+  .scroll-toggle__button {
+    display: none !important;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border: 2px solid var(--dark);
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100px;
+            flex: 0 0 100px;
+    margin: 10px;
+    padding: 10px;
+    position: relative;
+    -webkit-transition: all 0.1s ease;
+    transition: all 0.1s ease; }
+    .scroll-toggle__button:active, .scroll-toggle__button:hover {
+      background-color: var(--highlight); }
+    .scroll-toggle__button:focus {
+      outline: 2px solid var(--highlight); }
+  .scroll-toggle__list {
+    border-left: 2px solid var(--dark);
+    border-right: 2px solid var(--dark);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+    overflow-x: scroll; }
+  .scroll-toggle__list-item {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+    padding: 10px; }
+    .scroll-toggle__list-item .btn-default {
+      font-size: 16px; }
+
+#menuScroll {
+  display: none; }
+
+/*# sourceMappingURL=styleS.css.map */
