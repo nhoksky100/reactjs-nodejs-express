@@ -33,12 +33,14 @@ class Ratings extends Component {
         if (this.state.dataProduct === null) {
             var pushData = [];
             getProduct().then((res) => {
-                pushData = res.reverse();
-                this.setState({
-                    dataProduct: pushData,
-                    productTotal: res.length,
+                if (res) {
+                    pushData = res.reverse();
+                    this.setState({
+                        dataProduct: pushData,
+                        productTotal: res.length,
 
-                })
+                    })
+                }
             })
         }
     }

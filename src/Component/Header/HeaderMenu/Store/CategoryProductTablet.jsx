@@ -59,58 +59,60 @@ class CategoryProductTablet extends Component {
         var { category, parth_slug, category_status } = this.props;
         var pushData = [], pushItem = [], pushDataTemp = [], count = 9, availableProduct = 9;
         getDataProduct().then((res) => {
-            // catelgory = status boolean
-            pushData = res.sort(() => Math.random() - Math.random()); //random product
-            pushData.map((value) => {
-                if (category_status) {
-                    if (
-                        (stringtoslug(value.productCategory).indexOf(category) !== -1) ||
-                        (value.productCategory.toUpperCase().indexOf(category) !== -1) ||
-                        (value.productCategory.indexOf(category) !== -1) ||
-                        (value.productCategory.toLowerCase().indexOf(category) !== -1)
+            if (res) {
+                // catelgory = status boolean
+                pushData = res.sort(() => Math.random() - Math.random()); //random product
+                pushData.map((value) => {
+                    if (category_status) {
+                        if (
+                            (stringtoslug(value.productCategory).indexOf(category) !== -1) ||
+                            (value.productCategory.toUpperCase().indexOf(category) !== -1) ||
+                            (value.productCategory.indexOf(category) !== -1) ||
+                            (value.productCategory.toLowerCase().indexOf(category) !== -1)
 
-                    ) {
+                        ) {
 
-                        pushDataTemp.push(value)
+                            pushDataTemp.push(value)
+                        }
+                    } else {
+                        if (
+                            (stringtoslug(value.productCategory).indexOf(parth_slug + category) !== -1) ||
+                            (value.productCategory.toUpperCase().indexOf(parth_slug + category) !== -1) ||
+                            (value.productCategory.indexOf(parth_slug + category) !== -1) ||
+                            (value.productCategory.toLowerCase().indexOf(parth_slug + category) !== -1)
+                        ) {
+                            pushDataTemp.push(value)
+                        }
                     }
+                    return pushData
+                })
+
+                if (pushDataTemp.length > availableProduct) {
+
+                    pushDataTemp.map((item) => {
+                        if (count >= 1) {
+                            pushItem.push(item);
+                            count--;
+                        }
+                        return pushDataTemp
+                    })
+
+                    this.setState({
+                        items: pushItem
+                    })
                 } else {
-                    if (
-                        (stringtoslug(value.productCategory).indexOf(parth_slug + category) !== -1) ||
-                        (value.productCategory.toUpperCase().indexOf(parth_slug + category) !== -1) ||
-                        (value.productCategory.indexOf(parth_slug + category) !== -1) ||
-                        (value.productCategory.toLowerCase().indexOf(parth_slug + category) !== -1)
-                    ) {
-                        pushDataTemp.push(value)
-                    }
+                    this.setState({
+                        items: pushDataTemp,
+                    })
                 }
-                return pushData
-            })
-
-            if (pushDataTemp.length > availableProduct) {
-
-                pushDataTemp.map((item) => {
-                    if (count >= 1) {
-                        pushItem.push(item);
-                        count--;
-                    }
-                    return pushDataTemp
-                })
 
                 this.setState({
-                    items: pushItem
-                })
-            } else {
-                this.setState({
-                    items: pushDataTemp,
+                    dataProduct: pushDataTemp,
+                    //update
+                    parthSlug: parth_slug,
+                    categoryStatus: category_status
                 })
             }
-
-            this.setState({
-                dataProduct: pushDataTemp,
-                //update
-                parthSlug: parth_slug,
-                categoryStatus: category_status
-            })
         })
     }
 

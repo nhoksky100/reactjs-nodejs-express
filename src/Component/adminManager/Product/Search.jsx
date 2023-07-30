@@ -10,20 +10,22 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchValue: '', selectSearch: '',selectDataCatagory:null,
+            searchValue: '', selectSearch: '', selectDataCatagory: null,
         }
     }
     componentDidMount() {
         if (this.state.selectDataCatagory === null) {
             getDataCategory().then((res) => {
-                this.setState({ selectDataCatagory: res })
+                if (res) {
+                    this.setState({ selectDataCatagory: res })
+                }
             })
         }
-    
+
     }
 
 
-    pushOption = (codeCatalog, catalog,pushName) => {
+    pushOption = (codeCatalog, catalog, pushName) => {
         var pushOption = []
         for (let i = 0; i < codeCatalog.length; i++) {
             if (codeCatalog[i].includes(catalog)) {
@@ -36,7 +38,7 @@ class Search extends Component {
     // category
     categorySelect = () => {
         var { selectDataCatagory } = this.state
-        var isPushcatalog = [], PushcatalogOption = [],  pushcodeName = [], pushCatalog = [], isCatalog = false, pushName = []
+        var isPushcatalog = [], PushcatalogOption = [], pushcodeName = [], pushCatalog = [], isCatalog = false, pushName = []
 
         if (selectDataCatagory) {
             selectDataCatagory.reverse()
@@ -60,18 +62,18 @@ class Search extends Component {
 
                 }
             })
-   
+
             if (isCatalog) {
                 for (let i = 0; i < pushCatalog.length; i++) {
 
                     PushcatalogOption.push(
                         <optgroup key={i} label={pushCatalog[i]}>
-                            {this.pushOption(pushcodeName, pushCatalog[i],pushName)}
-    
+                            {this.pushOption(pushcodeName, pushCatalog[i], pushName)}
+
                         </optgroup>
                     )
-    
-    
+
+
                 }
             }
 
@@ -103,13 +105,13 @@ class Search extends Component {
             })
         }
         else if (dataProduct !== null && name === 'selectSearch') {
-            
+
             this.FormClearValue();
             dataProduct.map((value) => {
-               
-                if(value.productCategory.indexOf(searchValue)!==-1){
+
+                if (value.productCategory.indexOf(searchValue) !== -1) {
                     pushItem.push(value);
-                
+
                 }
                 // if ((stringtoslug(value.product_category).includes(searchValue)) ||
                 //     (value.product_category.toUpperCase().includes(searchValue)) ||
@@ -135,13 +137,13 @@ class Search extends Component {
     }
 
     searchForm = () => {
-      
+
         return (
             <div className="hm-searchbox" id='form_link'>
                 <select onChange={(event) => this.searchValue(event)} defaultValue={' '} name='selectSearch' ref='selectSearch' className="nice-select select-search-category">
                     <option value={''}>--Tìm thể loại--</option>
                     {this.categorySelect()}
-              
+
 
                 </select>
                 <input onChange={(event) => this.searchValue(event)} name='searchValue' type="text" ref="searchValue" placeholder="Tìm kiếm tên sản phẩm..." />

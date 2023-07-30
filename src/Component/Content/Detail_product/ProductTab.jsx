@@ -51,23 +51,23 @@ class ProductTab extends Component {
         var dataFil = [];
         var pushPointsStar = '';
         getDataProduct().then((res) => {
-
-            dataFil = res.filter((item) => item.ID === ID);
-            dataFil.map((value) => {
-                pushPointsStar = value.points_star;
-                return dataFil
-            })
-            if (pushPointsStar) {
-
-                pushPointsStar = pushPointsStar.split(',')
-                this.setState({
-                    dataTab: dataFil,
-                    pointsStar: pushPointsStar,
-                    IdDetailsProduct: ID
-
+            if (res) {
+                dataFil = res.filter((item) => item.ID === ID);
+                dataFil.map((value) => {
+                    pushPointsStar = value.points_star;
+                    return dataFil
                 })
-            }
+                if (pushPointsStar) {
 
+                    pushPointsStar = pushPointsStar.split(',')
+                    this.setState({
+                        dataTab: dataFil,
+                        pointsStar: pushPointsStar,
+                        IdDetailsProduct: ID
+
+                    })
+                }
+            }
 
         })
 

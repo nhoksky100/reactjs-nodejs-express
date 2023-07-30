@@ -12,7 +12,7 @@ var jwt = require('jsonwebtoken');
 // const { get } = require('https');
 var bcrypt = require('bcryptjs');
 
-// import s from "../../../src/Component/Content/Detail_product/node_Comment_Parent.json"
+
 
 var conn = mysql.createConnection({
     host: 'localhost',
@@ -35,7 +35,7 @@ conn.connect(function(err) {
 
 
 // node comment
-var COMMENTS_FILE_PARENT = path.join(__dirname, "../../../src/Component/Content/Detail_product/node_Comment_Parent.json");
+var COMMENTS_FILE_PARENT = path.join(__dirname, "../../src/Component/Content/Detail_product/node_Comment_Parent.json");
 router.get('/nodeCommentParent', function(req, res) {
     fs.readFile(COMMENTS_FILE_PARENT, function(err, data) {
         if (err) { /* Print error to console */ }
@@ -76,7 +76,7 @@ router.post('/nodeCommentParent', function(req, res) {
 });
 
 //node comment child
-var COMMENTS_FILE_CHILD = path.join(__dirname, "../../../src/Component/Content/Detail_product/node_Comment_Child.json");
+var COMMENTS_FILE_CHILD = path.join(__dirname, "../../src/Component/Content/Detail_product/node_Comment_Child.json");
 router.get('/nodeCommentChild', function(req, res) {
     fs.readFile(COMMENTS_FILE_CHILD, function(err, data) {
         if (err) { /* Print error to console */ }
@@ -160,7 +160,7 @@ router.post('/removeCommentChild', function(req, res) {
 
 
 // like comment
-var LIKE_COMMENTS_CHILD = path.join(__dirname, "../../../src/Component/Content/Detail_product/Like_Comment_Child.json");
+var LIKE_COMMENTS_CHILD = path.join(__dirname, "../../src/Component/Content/Detail_product/Like_Comment_Child.json");
 router.post('/likeCommentChild', function(req, res) {
     fs.readFile(LIKE_COMMENTS_CHILD, function(err, data) {
 
@@ -181,7 +181,7 @@ router.post('/likeCommentChild', function(req, res) {
         });
     });
 });
-var LIKE_COMMENTS_PARENT = path.join(__dirname, '../../../src/Component/Content/Detail_product/Like_Comment_Parent.json');
+var LIKE_COMMENTS_PARENT = path.join(__dirname, '../../src/Component/Content/Detail_product/Like_Comment_Parent.json');
 router.post('/likeCommentParent', function(req, res) {
     fs.readFile(LIKE_COMMENTS_PARENT, function(err, data) {
 
@@ -205,7 +205,7 @@ router.post('/likeCommentParent', function(req, res) {
 
 
 // sales json 
-var StatisticsSales = path.join(__dirname, '../../../src/Component/adminManager/StatisticsData/StatisticsSales.json');
+var StatisticsSales = path.join(__dirname, '../../src/Component/adminManager/StatisticsData/StatisticsSales.json');
 router.get('/salesDate', function(req, res) {
     fs.readFile(StatisticsSales, function(err, data) {
         if (err) { /* Print error to console */ }
@@ -254,7 +254,7 @@ router.post('/removeDataRecovery', function(req, res) {
 });
 
 // recovery data 
-var DATARECOVERY_FILE = path.join(__dirname, '../../../src/Component/adminManager/Product/RecoveryData.json');
+var DATARECOVERY_FILE = path.join(__dirname, '../../src/Component/adminManager/Product/RecoveryData.json');
 router.get('/dataRecovery', function(req, res) {
     fs.readFile(DATARECOVERY_FILE, function(err, data) {
         if (err) { /* Print error to console */ }
@@ -312,7 +312,7 @@ router.post('/dataRecovery', function(req, res) {
 
 
 //cart product
-var CART_FILE = path.join(__dirname, '../../../src/Component/Header/CartProduct/Cart.json');
+var CART_FILE = path.join(__dirname, '../../src/Component/Header/CartProduct/Cart.json');
 router.get('/dataCart', function(req, res) {
     fs.readFile(CART_FILE, function(err, data) {
         if (err) { /* Print error to console */ }
@@ -355,7 +355,7 @@ router.post('/dataCart', function(req, res) {
 });
 
 //check out product
-var CheckOutProduct = path.join(__dirname, '../../../src/Component/Header/CartProduct/CheckOutProduct.json');
+var CheckOutProduct = path.join(__dirname, '../../src/Component/Header/CartProduct/CheckOutProduct.json');
 router.get('/checkout', function(req, res) {
     fs.readFile(CheckOutProduct, function(err, data) {
         if (err) { /* Print error to console */ }
@@ -564,7 +564,7 @@ router.get('/getdata_rating', function(req, res, next) {
 
 
 // check rating vote json
-var checkVote = path.join(__dirname, '../../../src/Component/RatingStar/ratingCheckvote.json');
+var checkVote = path.join(__dirname, '../../src/Component/RatingStar/ratingCheckvote.json');
 router.get('/checkvote', function(req, res) {
     fs.readFile(checkVote, function(err, data) {
         if (err) { /* Print error to console */ }
@@ -642,7 +642,7 @@ router.get('/getdata_admin_member', function(req, res, next) {
 
 // json file admin member login
 
-var loginMemberJson = path.join(__dirname, '../../../src/Component/adminManager/adminMember/PermissionLogin.json');
+var loginMemberJson = path.join(__dirname, '../../src/Component/adminManager/adminMember/PermissionLogin.json');
 router.get('/login_member_json', function(req, res) {
     fs.readFile(loginMemberJson, function(err, data) {
         if (err) { /* Print error to console */ }

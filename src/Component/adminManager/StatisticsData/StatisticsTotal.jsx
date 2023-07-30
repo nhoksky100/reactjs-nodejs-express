@@ -11,7 +11,7 @@ class StatisticsTotal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            totalProduct:null,
+            totalProduct: null,
             totalMember: null,
             totalSupport: null,
             totalBlog: null,
@@ -21,40 +21,48 @@ class StatisticsTotal extends Component {
     componentDidMount() {
         if (!this.state.dataAdminMember) {
             getdataAdminMember().then((res) => {
-                this.setState({
+                if (res) {
+                    this.setState({
 
-                    totalMember: res.length
-                })
+                        totalMember: res.length
+                    })
+                }
             })
         }
         if (!this.state.totalSupport) {
             getDataSupport().then((res) => {
-                this.setState({
-                    totalSupport: res.length
-                })
+                if (res) {
+                    this.setState({
+                        totalSupport: res.length
+                    })
+                }
             })
         }
         if (!this.state.totalProduct) {
             getDataProduct().then((res) => {
-                this.setState({
-                    totalProduct: res.length
-                })
+                if (res) {
+                    this.setState({
+                        totalProduct: res.length
+                    })
+                }
             })
         }
         if (!this.state.totalBlog) {
             getDataBlog().then((res) => {
-                this.setState({
-                    totalBlog: res.length
-                })
+                if (res) {
+                    this.setState({
+                        totalBlog: res.length
+                    })
+                }
             })
         }
     }
 
     statisticsData = () => {
         // total data deal
-        var  {totalDetal}  = this.props;
-        var {totalSupport, totalMember,totalProduct,totalBlog} = this.state;
-       
+        var { totalDeal } = this.props;
+        var { totalSupport, totalMember, totalProduct, totalBlog } = this.state;
+
 
         // // counttotalPayment
         // dataDeal.map((value) => {
@@ -78,7 +86,7 @@ class StatisticsTotal extends Component {
                                 <div className="right f11"><NavLink to="/admin/deal.html">Chi tiết</NavLink></div>
                             </td>
                             <td className="textC webStatsLink">
-                                {totalDetal}
+                                {totalDeal ? totalDeal : ''}
                             </td>
                         </tr>
                         <tr>

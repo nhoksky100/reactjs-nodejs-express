@@ -15,22 +15,24 @@ class BlogContent extends Component {
             dataBlog: null,
             idBLogContent: ''
         }
-       
+
     }
-   
+
     componentDidMount() {
         if (!this.state.dataBlog) {
             var idBLogContent = sessionStorage.getItem('idBlogContent');
             getDataBlog().then((res) => {
-                this.setState({
-                    dataBlog: res,
-                    idBLogContent: idBLogContent
-                })
+                if (res) {
+                    this.setState({
+                        dataBlog: res,
+                        idBLogContent: idBLogContent
+                    })
+                }
             })
         }
 
     }
-  
+
     Content = (content) => <div {...reactInnerHTML(content)}></div>;
     showFromDetail = () => {
         var { dataBlog, idBLogContent } = this.state;
@@ -42,8 +44,8 @@ class BlogContent extends Component {
 
             return dataDetail.map((value, key) => {
                 return (
-                    <div className="detail-content" key={key}>                      
-                        {this.Content(value.content)}                  
+                    <div className="detail-content" key={key}>
+                        {this.Content(value.content)}
                     </div>
                 )
 
@@ -51,7 +53,7 @@ class BlogContent extends Component {
             })
         }
     }
-  
+
     render() {
         return (
             <div className='container'>
@@ -59,7 +61,7 @@ class BlogContent extends Component {
 
                     {this.showFromDetail()}
                 </div>
-            <Footer/>
+                <Footer />
             </div>
         );
     }

@@ -24,11 +24,13 @@ class AddAdminMember extends Component {
     }
     permissionData = () => {
         permissionMember().then((res) => {
-            if (res.permission === 'admin') {
-                this.setState({
-                    valueMember: res.permission,
+            if (res) {
+                if (res.permission === 'admin') {
+                    this.setState({
+                        valueMember: res.permission,
 
-                })
+                    })
+                }
             }
         })
     }

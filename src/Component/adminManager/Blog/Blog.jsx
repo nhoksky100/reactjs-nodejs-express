@@ -44,20 +44,21 @@ class Blog extends Component {
         if (this.state.dataBlog === null) {
             var pushRes = [];
             getDataBlog().then((res) => {
-
-                pushRes = res.reverse();
-                this.setState({
-                    dataBlog: pushRes,
-                    productTotal: res.length,
-                    dataTemp: pushRes
-                })
+                if (res) {
+                    pushRes = res.reverse();
+                    this.setState({
+                        dataBlog: pushRes,
+                        productTotal: res.length,
+                        dataTemp: pushRes
+                    })
+                }
             })
         }
 
         if (sessionStorage.getItem('ID_blog') === '' || sessionStorage.getItem('ID_blog') === null) {
             sessionStorage.setItem('ID_blog', '')
         }
-    
+
 
     }
     currentTodos = () => {
@@ -258,7 +259,7 @@ class Blog extends Component {
 
                     </div>
                 </div>		<div className="clear mt30" />
-               
+
             </div>
 
         );

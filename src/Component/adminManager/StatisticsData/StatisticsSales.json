@@ -1,8 +1,7 @@
 {
-      "date": 1677603600120,
-      "today": "2023-02-28T17:00:00.118Z",
       "priceDay": 0,
-      "priceMonth": 0,
-      "priceYear": 56564,
-      "priceTotal": 56564
+      "priceMonth": 40800000,
+      "priceYear": 40800000,
+      "priceTotal": 40800000,
+      "priceDayTeamp": 40800000
 }

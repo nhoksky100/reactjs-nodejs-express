@@ -33,16 +33,18 @@ class FormManager extends Component {
         if (this.state.dataDeal.length === 0) {
             var pushDataDeal = [];
             getDataCartFull().then((res) => {
-                res.map((value) => {
-                    pushDataDeal.push(value)
-                    return res
+                if (res) {
+                    res.map((value) => {
+                        pushDataDeal.push(value)
+                        return res
 
-                })
-                this.setState({
-                    dataDeal: pushDataDeal,
-                    dataTemp: pushDataDeal,
-                    dataLength: pushDataDeal.length
-                })
+                    })
+                    this.setState({
+                        dataDeal: pushDataDeal,
+                        dataTemp: pushDataDeal,
+                        dataLength: pushDataDeal.length
+                    })
+                }
 
             })
         }
@@ -151,7 +153,7 @@ class FormManager extends Component {
             <div>
 
                 < Sales dataDeal={this.state.dataDeal ? this.state.dataDeal : null} />
-                <StatisticsTotal totalDetal={this.state.dataLength} />
+                <StatisticsTotal totalDeal={this.state.dataLength} />
             </div>
 
         )

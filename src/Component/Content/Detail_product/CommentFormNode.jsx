@@ -69,13 +69,16 @@ class CommentFormNode extends Component {
 
             var pushData = []
             dataNodeCommentChild().then((res) => {
-                res.map((value) => {
-                    if (idProduct === value.idProduct) {
-                        pushData.push(value)
-                    }
-                    return res
-                })
-                this.setState({ dataNodeCommentChild: pushData })
+                if (res) {
+                    res.map((value) => {
+
+                        if (idProduct === value.idProduct) {
+                            pushData.push(value)
+                        }
+                        return res
+                    })
+                    this.setState({ dataNodeCommentChild: pushData })
+                }
             })
         }, 1000);
     }
@@ -84,16 +87,16 @@ class CommentFormNode extends Component {
             var { idProduct } = this.props;
             var pushData = []
             dataNodeComment().then((res) => {
+                if (res) {
+                    res.map((value) => {
+                        if (idProduct === value.idProduct) {
+                            pushData.push(value)
+                        }
+                        return res
+                    })
 
-                res.map((value) => {
-                    if (idProduct === value.idProduct) {
-                        pushData.push(value)
-                    }
-                    return res
-                })
-
-                this.setState({ dataNodeComment: pushData, })
-
+                    this.setState({ dataNodeComment: pushData, })
+                }
             })
         }, 1000);
 

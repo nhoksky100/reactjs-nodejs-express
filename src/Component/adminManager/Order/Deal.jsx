@@ -56,25 +56,29 @@ class Deal extends Component {
             var pushDataCheckOut = []
 
             getDataCartFull().then((res) => {
-                res.map((value, key) => {
-                    pushDataCheckOut.push(value)
+                if (res) {
+                    res.map((value, key) => {
+                        pushDataCheckOut.push(value)
 
-                    this.setState({
-                        dataCheckOut: pushDataCheckOut,
-                        dataTemp: pushDataCheckOut,
-                        dataLength: pushDataCheckOut.length,
+                        this.setState({
+                            dataCheckOut: pushDataCheckOut,
+                            dataTemp: pushDataCheckOut,
+                            dataLength: pushDataCheckOut.length,
+
+                        })
 
                     })
 
-                })
-
-                return res
+                    return res
+                }
             })
             getProduct().then((res) => {
-                this.setState({
-                    dataProduct: res,
+                if (res) {
+                    this.setState({
+                        dataProduct: res,
 
-                })
+                    })
+                }
             })
         }
 
@@ -206,24 +210,6 @@ class Deal extends Component {
                             < a href='#delete' title="Xóa" name='productId' className="tipS verify_action ml5" onClick={() => this.delete(value.tradingCode)}>
                                 <img src="images/icons/color/delete.png" alt='' /></a>
 
-                            {/* } */}
-
-                            {/* <div id={this.state.isToggle ? "myModal" : 'none'} className="modal fade">
-                                <div className="modal-dialog modal-confirm">
-                                    <div className="modal-content">
-
-                                        <h4 className="modal-title w-100">Bạn có chắc chắn muốn xóa</h4>
-                                        <label style={{ fontSize: '12px', margin: '10px' }}> Không hiển thị lần sau
-                                            <input style={{ height: 'auto', cursor: 'pointer' }} type={'checkbox'} onClick={() => this.checkedCleanConfirm()} name='checkboxisShow' />
-                                        </label>
-
-                                        <div className="modal-footer justify-content-center">
-                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">hủy</button>
-                                            <button type="button" onClick={() => this.Delete(value.id)} data-dismiss="modal" className="btn btn-danger">Xóa</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
 
                         </td>
 
@@ -264,7 +250,7 @@ class Deal extends Component {
                 dayShipping: isSelectDate ? selectedDateDefault : dataEdit.dayShipping,
                 dateTime: dataEdit.dateTime
             }
-           
+
             dataCheckOut.map((value, key) => {
                 if (value.id === dataUpdate.id && value.tradingCode === dataUpdate.tradingCode) {
                     dataCheckOut[key].id = dataUpdate.id
@@ -273,7 +259,7 @@ class Deal extends Component {
                     dataCheckOut[key].transaction = dataUpdate.transaction
                     dataCheckOut[key].dayShipping = dataUpdate.dayShipping
                     if (dataUpdate.transaction === 'Thành công' && dataUpdate.order === 'Đã gửi hàng' && !value.statisticsKey) {
-                      
+
                         dataCheckOut[key].statisticsKey = true
                         dataCheckOut[key].payment = 'Đã thanh toán'
                         dataCheckOut[key].dayShipping = new Date()

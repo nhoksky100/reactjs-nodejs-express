@@ -17,26 +17,28 @@ class BlogCategory extends Component {
             currentPage: 1,
             newsPerPage: 5, // show 5 pt
             pageNumbers: [],
-        
+
         }
     }
     componentDidMount() {
         if (!this.state.dataBlog) {
             getDataBlog().then((res) => {
-                this.setState({
-                    dataBlog: res.reverse(),
-                    dataLength: res.length,
+                if (res) {
+                    this.setState({
+                        dataBlog: res.reverse(),
+                        dataLength: res.length,
 
-                })
+                    })
+                }
             })
         }
     }
-   
+
     currentTodos = () => {
         const { currentPage, newsPerPage, } = this.state; // trang hiện tại acti  //cho trang tin tức mỗi trang
         const indexOfLastNews = currentPage * newsPerPage; // lấy vị trí cuối cùng của trang ,của data
         const indexOfFirstNews = indexOfLastNews - newsPerPage; // lấy vị trí đầu tiên  của trang ,của data
-        var  pathName = this.props.location.pathname;
+        var pathName = this.props.location.pathname;
         var dataBlog = this.state.dataBlog.filter((item) => item.catalog.indexOf(pathName.slice(6, -5)) !== -1 || item.company.indexOf(pathName.slice(6, -5)) !== -1); // tìm pathname
         // console.log(dataBlog);
         return dataBlog.slice(indexOfFirstNews, indexOfLastNews); // lấy dữ liệu ban đầu và cuối gán cho các list
@@ -61,7 +63,7 @@ class BlogCategory extends Component {
     }
     showCategoryBLog = () => {
         var { dataBlog } = this.state;
-       
+
 
         if (dataBlog) {
             const currentTodos = this.currentTodos();
@@ -138,7 +140,7 @@ class BlogCategory extends Component {
             <div id='blog' className="content-panel">
                 <div className="content-panel-title">
                     <NavLink to="/blog" className="right">
-                       {t("news-homepage")}
+                        {t("news-homepage")}
 
                     </NavLink>
                     <h2>{t("footer-news")} {this.props.location.pathname.slice(6, -5)}</h2>
@@ -180,7 +182,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
 
-      
+
     }
 }
 

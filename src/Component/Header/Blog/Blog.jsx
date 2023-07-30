@@ -26,10 +26,12 @@ class Blog extends Component {
     componentDidMount() {
         if (!this.state.dataBlog) {
             getDataBlog().then((res) => {
-                this.setState({
-                    dataBlog: res,
-                    dataLength: res.length,
-                })
+                if (res) {
+                    this.setState({
+                        dataBlog: res,
+                        dataLength: res.length,
+                    })
+                }
             })
         }
     }
@@ -55,7 +57,7 @@ class Blog extends Component {
         // var dataFil = [];
         // dataFil = dataBlog.filter((item) => item.ID === idBlog);
         sessionStorage.setItem('idBlogContent', idBlog);
-       
+
     }
 
     showDataBlog = () => {
@@ -82,7 +84,7 @@ class Blog extends Component {
                                     </span> */}
                                 </span>
 
-                                <img src={value.fileImage} alt=''/>
+                                <img src={value.fileImage} alt='' />
                             </NavLink>
                         </div>
                         <div className="item-content">
@@ -169,7 +171,7 @@ class Blog extends Component {
                     {this.showForm()}
 
                 </div>
-            
+
             </div>
 
         );
@@ -183,7 +185,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
 
-      
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Blog)

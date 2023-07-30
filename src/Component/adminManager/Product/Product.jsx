@@ -49,12 +49,14 @@ class Product extends Component {
         if (this.state.dataProduct === null) {
             var pushRes = [];
             getProduct().then((res) => {
-                pushRes = res.reverse();
-                this.setState({
-                    dataProduct: pushRes,
-                    productTotal: res.length,
-                    dataTemp: pushRes
-                })
+                if (res) {
+                    pushRes = res.reverse();
+                    this.setState({
+                        dataProduct: pushRes,
+                        productTotal: res.length,
+                        dataTemp: pushRes
+                    })
+                }
             })
         }
 

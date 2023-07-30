@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import HeaderTop from './HeaderTop/HeaderTop';
 import HeaderMenu from './HeaderMenu/HeaderMenu';
 import HeaderMid from './HeaderMid/HeaderMid';
-import HeaderMobileMenu from './HeaderMobileMenu';
+// import HeaderMobileMenu from './HeaderMobileMenu';
 import CartProduct from './CartProduct/CartProduct';
 import { connect } from 'react-redux';
 // import { t } from 'i18next';
@@ -20,7 +20,7 @@ class Header extends Component {
                     <HeaderMid />
                     <HeaderMenu />
 
-                    <HeaderMobileMenu />
+                  
                     <CartProduct />
                 </Fragment>
             )

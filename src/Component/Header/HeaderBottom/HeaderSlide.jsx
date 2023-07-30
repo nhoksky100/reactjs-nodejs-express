@@ -56,7 +56,9 @@ class HeaderSlide extends Component {
     componentDidMount() {
         if (this.state.dataSlide === null) {
             getSlideList().then((res) => {
-                this.setState({ dataSlide: res })
+                if (res) {
+                    this.setState({ dataSlide: res })
+                }
             })
         }
     }

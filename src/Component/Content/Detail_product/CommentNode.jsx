@@ -48,13 +48,15 @@ class NodeComment extends Component {
         var { idProduct } = this.props
         var pushData = []
         dataRemoveCommentChild().then((res) => {
-            res.map((value) => {
-                if (idProduct === value.idProduct) {
-                    pushData.push(value)
-                }
-                return res
-            })
-            this.setState({ dataChild: pushData })
+            if (res) {
+                res.map((value) => {
+                    if (idProduct === value.idProduct) {
+                        pushData.push(value)
+                    }
+                    return res
+                })
+                this.setState({ dataChild: pushData })
+            }
 
         })
 
@@ -160,7 +162,7 @@ class NodeComment extends Component {
     liked = () => {
         if (localStorage.getItem('tokenIdCustomer')) {
             if (!this.state.isLiked) {
-             
+
                 this.setState({
                     // likes: this.state.likes+1,
                     blueLiked: 'blue-liked'
@@ -226,8 +228,7 @@ class NodeComment extends Component {
         if (voteStar !== '') {
             colorStar = 'colorStar'
         }
-        var profile = JSON.parse(localStorage.getItem('tokenProfileCustomer'));
-
+        var profile = JSON.parse(localStorage.getItem('tokenProfileCustomer')) ? JSON.parse(localStorage.getItem('tokenProfileCustomer')) : '';
 
         return (
             <Fragment>
@@ -278,13 +279,14 @@ class NodeComment extends Component {
                             <li className="t-h">
 
                                 <div id="other-h" className="reset-c">
-                                    {profile.email === data.email &&
+                                    {
+                                        profile.email === data.email &&
                                         < i onClick={() => this.deleteComment(keyChild, data)}
                                             title={t("delete")}
                                             className="fa mb delete-comment fa-trash-o" aria-hidden="true"
                                         />
-                                    }
 
+                                    }
 
                                     <i className={"fa mb fa-thumbs-up " + this.state.blueLiked} aria-hidden="true"
                                         onClick={() => this.liked()}

@@ -55,33 +55,34 @@ class DataRecovery extends Component {
     dataPermission = () => {
         if (!this.state.dataPermission) {
             permissionMember().then((res) => {
+                if (res) {
+                    if (res.permission === 'admin') {
+                        if (this.state.dataProduct === null) {
+                            var pushRes = [];
+                            getProduct().then((res) => {
+                                pushRes = res.reverse();
+                                this.setState({
+                                    dataProduct: pushRes,
+                                    productTotal: res.length,
+                                    dataTemp: pushRes,
 
-                if (res.permission === 'admin') {
-                    if (this.state.dataProduct === null) {
-                        var pushRes = [];
-                        getProduct().then((res) => {
-                            pushRes = res.reverse();
-                            this.setState({
-                                dataProduct: pushRes,
-                                productTotal: res.length,
-                                dataTemp: pushRes,
+                                })
 
                             })
+                        }
+
+                        if (sessionStorage.getItem('ID_product') === '' || sessionStorage.getItem('ID_product') === null) {
+                            sessionStorage.setItem('ID_product', '')
+                        }
+                        this.setState({
+                            dataPermission: res.permission,
 
                         })
+                    } else {
+                        this.setState({
+                            isPermission: false
+                        })
                     }
-
-                    if (sessionStorage.getItem('ID_product') === '' || sessionStorage.getItem('ID_product') === null) {
-                        sessionStorage.setItem('ID_product', '')
-                    }
-                    this.setState({
-                        dataPermission: res.permission,
-
-                    })
-                } else {
-                    this.setState({
-                        isPermission: false
-                    })
                 }
             })
         }
@@ -204,11 +205,11 @@ class DataRecovery extends Component {
         if (isRecovery) { dataRecovery = [] }
         axios.post('/removeDataRecovery', { dataRecovery })
             .then((response) => {
-                this.setState({ 
+                this.setState({
                     dataProduct: dataRecovery,
-                     dataTemp: dataRecovery,
-                     productTotal:dataRecovery.length 
-                    })
+                    dataTemp: dataRecovery,
+                    productTotal: dataRecovery.length
+                })
                 if (isFlag) {
                     toast(<div className="advertise"><i className="fa fa-minus-circle" aria-hidden="true" />
                         <i>Xóa vĩnh viễn thành công!</i></div>)
@@ -223,7 +224,7 @@ class DataRecovery extends Component {
         dataProduct.map((value, key) => {
             if (dataProduct.length - 1 === key) {
                 isRecoveryAll = true
-               
+
             }
             this.recovery(value, isRecoveryAll)
         })
@@ -256,7 +257,7 @@ class DataRecovery extends Component {
             // search date + value
             dataProductSearch = search_value;
             dataProductDate = SearchDateProduct(dataProductSearch, dateTimeStart, dateTimeEnd);
-           
+
             if (dataProductDate && dateTimeStart) {
                 this.setState({ dataProduct: dataProductDate, })
             }
@@ -266,7 +267,7 @@ class DataRecovery extends Component {
             //    search date
             dataProductSearch = this.state.dataTemp;
             dataProductDate = SearchDateProduct(dataProductSearch, dateTimeStart, dateTimeEnd);
-           
+
             this.setState({ dataProduct: dataProductDate, })
         }
         if (dataProductDate !== null) {

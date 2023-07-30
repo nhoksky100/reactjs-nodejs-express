@@ -28,18 +28,19 @@ class CartProduct extends Component {
 
             var pushData = [];
             getDataCart().then((res) => {
+                if (res) {
+                    res.map((value) => {
+                        if (value.emailCustomer === profile.email) {
+                            pushData.push(value);
+                        }
+                        return res
+                    })
+                    this.setState({
+                        dataCart: pushData,
+                        totalProductCart: pushData.length,
 
-                res.map((value) => {
-                    if (value.emailCustomer === profile.email) {
-                        pushData.push(value);
-                    }
-                    return res
-                })
-                this.setState({
-                    dataCart: pushData,
-                    totalProductCart: pushData.length,
-
-                })
+                    })
+                }
             })
         }
 

@@ -28,7 +28,9 @@ class CategoryProductWatch extends Component {
 
         if (this.state.dataProduct === null) {
             getDataProduct().then((res) => {
-                this.setState({ dataProduct: res })
+                if (res) {
+                    this.setState({ dataProduct: res })
+                }
 
             })
         }

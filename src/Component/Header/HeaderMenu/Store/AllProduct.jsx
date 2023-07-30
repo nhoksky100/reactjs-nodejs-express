@@ -57,20 +57,22 @@ class AllProduct extends Component {
     checkCategoryValue = () => {
         var pushData = [], pushItem = [], count = 9;
         getJoinData().then((res) => {
-            // pushData = res.reverse();
-            pushData = res.sort(() => Math.random() - Math.random()); //random product
-            pushData.map((value) => {
-                if (count > 0) {
-                    pushItem.push(value);
-                    count--;
-                }
-                return pushData
-            })
-            this.setState({
-                dataJoin: pushData,
-                items: pushItem
+            if (res) {
+                // pushData = res.reverse();
+                pushData = res.sort(() => Math.random() - Math.random()); //random product
+                pushData.map((value) => {
+                    if (count > 0) {
+                        pushItem.push(value);
+                        count--;
+                    }
+                    return pushData
+                })
+                this.setState({
+                    dataJoin: pushData,
+                    items: pushItem
 
-            })
+                })
+            }
         })
     }
 
@@ -198,7 +200,7 @@ class AllProduct extends Component {
 
                         <div className="col-sm-6 col-md-3 product" key={index}>
                             <div className="body">
-                              
+
                                 <NavLink to={'/detail-product/' + stringtoslug(value.productName) + ".html"}>
                                     <img onClick={() => this.getDetailsProductSingle(value.id)} src={value.productImage} alt={value.productName} title={value.productName} />
                                 </NavLink>
@@ -213,7 +215,7 @@ class AllProduct extends Component {
                                         />
                                     </h1>
                                     <div className="price-box pt-20">
-                                      
+
 
                                         <span className="new-price new-price-2">
                                             {FormatNumber(ExChangeRate(value.productComplatePrice, currencyDefault, currencyRate))}

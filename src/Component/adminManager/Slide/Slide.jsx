@@ -17,7 +17,9 @@ class Slide extends Component {
     componentDidMount() {
         if (this.state.dataSlide === null) {
             getDataSlide().then((res) => {
-                this.setState({ dataSlide: res })
+                if (res) {
+                    this.setState({ dataSlide: res })
+                }
             })
         }
     }
@@ -28,18 +30,18 @@ class Slide extends Component {
             return this.state.dataSlide.map((value, key) => {
                 return (
                     <Fragment key={key}>
-                     
+
                         <div className="item col-lg-3 col-sm-4 col-xs-6">
                             <div id="loadOverlay" ></div>
                             <div key={key} className="btn01">
 
-                                <img className='img' src={value.image_slide} width="280px" alt=''/>
+                                <img className='img' src={value.image_slide} width="280px" alt='' />
                                 <div className="ovrly" />
                                 <div className="buttons">
                                     <a href='#delete' onClick={() => this.Delete(value.ID)} title="Xóa" name='ID' className="overf tipS verify_action_slide">
                                         <img src="images/icons/color/delete.png" style={{ width: '20px' }} alt='' />
                                     </a>
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -52,8 +54,8 @@ class Slide extends Component {
     //delete
     Delete = (slideId) => {
 
-        var filDelete =[];
-  
+        var filDelete = [];
+
         getDataDeleteSlide(slideId).then((res) => {
             filDelete = this.state.dataSlide.filter((item) => item.ID !== slideId); // lọc danh sách khác với id đã chọn 
             this.setState({ dataSlide: filDelete }) // cập nhật lại danh sách đã lọc
@@ -63,7 +65,7 @@ class Slide extends Component {
 
     }
     render() {
-       
+
         return (
             <Fragment>
 

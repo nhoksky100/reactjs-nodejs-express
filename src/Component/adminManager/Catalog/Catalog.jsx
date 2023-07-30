@@ -17,9 +17,9 @@ class Catalog extends Component {
             activePage: 15,
             currentPage: 1,
             newsPerPage: 5,
-        
+
             sort: false,
-          
+
         }
     }
 
@@ -29,10 +29,12 @@ class Catalog extends Component {
     componentDidMount() {
         if (this.state.dataCategory === null) {
             getDataCategory().then((res) => {
-                this.setState({
-                    dataCategory: res.reverse(),
-                    allCountCategory: res.length
-                })
+                if (res) {
+                    this.setState({
+                        dataCategory: res.reverse(),
+                        allCountCategory: res.length
+                    })
+                }
 
             })
 
@@ -56,7 +58,7 @@ class Catalog extends Component {
         const { currentPage, newsPerPage } = this.state; // trang hiện tại acti  //cho trang tin tức mỗi trang
         const indexOfLastNews = currentPage * newsPerPage; // lấy vị trí cuối cùng của trang ,của data
         const indexOfFirstNews = indexOfLastNews - newsPerPage; // lấy vị trí đầu tiên  của trang ,của data
-        return  this.state.dataCategory.slice(indexOfFirstNews, indexOfLastNews); // lấy dữ liệu ban đầu và cuối gán cho các list
+        return this.state.dataCategory.slice(indexOfFirstNews, indexOfLastNews); // lấy dữ liệu ban đầu và cuối gán cho các list
     }
     showCategory = () => {
 
@@ -74,14 +76,14 @@ class Catalog extends Component {
                         <td>{value.name}</td>
                         <td>{value.catalog}</td>
                         {/* <td>{value.total}</td> */}
-                        <td  className="option">
-                            <NavLink to='/admin/catalog-edit.html' onClick={() => this.Edit(value.ID)} 
-                                 
-                            title="Chỉnh sửa" className="tipS verify_action"  style={{marginRight:'15px'}}>
+                        <td className="option">
+                            <NavLink to='/admin/catalog-edit.html' onClick={() => this.Edit(value.ID)}
+
+                                title="Chỉnh sửa" className="tipS verify_action" style={{ marginRight: '15px' }}>
                                 <img src="images/icons/color/edit.png" alt='' />
                             </NavLink>
-                            <a href='#delete' onClick={() => this.Delete(value.ID)} 
-                            title="Xóa" name='ID' className="tipS verify_action">
+                            <a href='#delete' onClick={() => this.Delete(value.ID)}
+                                title="Xóa" name='ID' className="tipS verify_action">
                                 <img src="images/icons/color/delete.png" alt='' />
                             </a>
                         </td>
@@ -110,7 +112,7 @@ class Catalog extends Component {
 
     }
     render() {
-     
+
         return (
             <div id="rightSide">
                 {<FormtitleArea
@@ -118,7 +120,7 @@ class Catalog extends Component {
                     managerName={'Quản lý thể loại'}
                     urlAdd={'/admin/catalog-add.html'}
                     imageAdd={'./images/icons/control/16/add.png'}
-                   
+
                 />}
                 <div className="line" />
                 {/* Message */}

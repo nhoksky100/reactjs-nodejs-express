@@ -50,42 +50,44 @@ class CategoryProductAccessories extends Component {
     checkCategoryValue = () => {
         var pushData = [], pushItem = [], pushDataTemp = [], count = 9;
         getDataProduct().then((res) => {
-            // push_data = res.reverse()
-            pushData = res.sort(() => Math.random() - Math.random()); //random product
-            pushData.map((value) => {
-                if (
-                    (stringtoslug(value.productCategory).indexOf('accessories') !== -1) ||
-                    (value.productCategory.toUpperCase().indexOf('accessories') !== -1) ||
-                    (value.productCategory.indexOf('accessories') !== -1) ||
-                    (value.productCategory.toLowerCase().indexOf('accessories') !== -1)
+            if (res) {
+                // push_data = res.reverse()
+                pushData = res.sort(() => Math.random() - Math.random()); //random product
+                pushData.map((value) => {
+                    if (
+                        (stringtoslug(value.productCategory).indexOf('accessories') !== -1) ||
+                        (value.productCategory.toUpperCase().indexOf('accessories') !== -1) ||
+                        (value.productCategory.indexOf('accessories') !== -1) ||
+                        (value.productCategory.toLowerCase().indexOf('accessories') !== -1)
 
-                ) {
-                    pushDataTemp.push(value)
-                }
-                return pushData
-            })
-            if (pushDataTemp.length > 9) {
-                //show 9 product
-                pushDataTemp.map((item) => {
-                    if (count >= 1) {
-                        pushItem.push(item);
-                        count--;
+                    ) {
+                        pushDataTemp.push(value)
                     }
-                    return pushDataTemp
+                    return pushData
                 })
+                if (pushDataTemp.length > 9) {
+                    //show 9 product
+                    pushDataTemp.map((item) => {
+                        if (count >= 1) {
+                            pushItem.push(item);
+                            count--;
+                        }
+                        return pushDataTemp
+                    })
+
+                    this.setState({
+                        items: pushItem
+                    })
+                } else {
+                    this.setState({
+                        items: pushDataTemp
+                    })
+                }
 
                 this.setState({
-                    items: pushItem
-                })
-            } else {
-                this.setState({
-                    items: pushDataTemp
+                    dataProduct: pushDataTemp
                 })
             }
-
-            this.setState({
-                dataProduct: pushDataTemp
-            })
         })
     }
 

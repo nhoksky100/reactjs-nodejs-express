@@ -17,7 +17,9 @@ class Pages extends Component {
     componentDidMount() {
         if (this.state.dataPages === null) {
             getdataPages().then((res) => {
-                this.setState({ dataPages: res })
+                if (res) {
+                    this.setState({ dataPages: res })
+                }
             })
         }
     }

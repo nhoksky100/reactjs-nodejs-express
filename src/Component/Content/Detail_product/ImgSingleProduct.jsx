@@ -18,13 +18,15 @@ class ImgSingleProduct extends Component {
         var pushImageSingle = [];
         pushImageSingle.push(<img key={0} className={classNameList} src={this.props.top_product} alt='' />)
         var image_list_slick = this.props;
-       
-        image_list_slick.image_list_slick.map((value, key) => {
-            pushImageSingle.push(<img key={key+1} className={classNameList} src={'../admin/upload/product/' + value} alt='' />)
-            return image_list_slick
-        })
+        if (image_list_slick) {
+            image_list_slick.image_list_slick.map((value, key) => {
 
-        return pushImageSingle
+                pushImageSingle.push(<img key={key + 1} className={classNameList} src={'../admin/upload/product/' + value} alt='' />)
+                return image_list_slick
+            })
+
+            return pushImageSingle
+        }
     }
 
     ImgDetailProductSlick = () => {
@@ -36,10 +38,10 @@ class ImgSingleProduct extends Component {
                     <Slider
                         asNavFor={this.state.nav2}
                         ref={slider => (this.slider1 = slider)}
-                        
+
                     >
 
-                     
+
 
                         {this.imageListSingle('img-big')}
                     </Slider>
@@ -47,7 +49,7 @@ class ImgSingleProduct extends Component {
 
                 <div className='row' id='thumb'>
 
-                    <div  className='thumb-img'>
+                    <div className='thumb-img'>
                         <Slider
                             asNavFor={this.state.nav1}
                             ref={slider => (this.slider2 = slider)}
@@ -55,12 +57,12 @@ class ImgSingleProduct extends Component {
                             swipeToSlide={true}
                             focusOnSelect={true}
                         >
-                           
-                          
-                            
+
+
+
 
                             {this.imageListSingle('img-thumb')}
-                            
+
                         </Slider>
 
 

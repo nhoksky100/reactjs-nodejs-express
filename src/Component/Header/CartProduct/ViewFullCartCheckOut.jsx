@@ -58,28 +58,30 @@ class ViewFullCartCheckOut extends Component {
             var countPrice = 0;
             var idCheckboxs = []
             getDataCartFull().then((res) => {
-                res.map((value, key) => {
-                    if (value.emailCustomer === profile.email) {
-                        dataCartNew.push(value);
-                        pushPrice.push(value.price)
-                        pushquantity.push(value.quantity)
-                        countPrice += parseInt(value.price * value.quantity) // initial total
+                if (res) {
+                    res.map((value, key) => {
+                        if (value.emailCustomer === profile.email) {
+                            dataCartNew.push(value);
+                            pushPrice.push(value.price)
+                            pushquantity.push(value.quantity)
+                            countPrice += parseInt(value.price * value.quantity) // initial total
 
-                    }
-                    idCheckboxs[key] = true
-                    return res
-                })
+                        }
+                        idCheckboxs[key] = true
+                        return res
+                    })
 
-                this.setState({
-                    dataCart: dataCartNew,
-                    productTotal: dataCartNew.length,
-                    totalPrice: countPrice,
-                    Price: pushPrice,
-                    quantity: pushquantity,
-                    idCheckboxs: idCheckboxs
+                    this.setState({
+                        dataCart: dataCartNew,
+                        productTotal: dataCartNew.length,
+                        totalPrice: countPrice,
+                        Price: pushPrice,
+                        quantity: pushquantity,
+                        idCheckboxs: idCheckboxs
 
 
-                })
+                    })
+                }
             })
         }
     }
