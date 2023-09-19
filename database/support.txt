@@ -1,6 +1,7 @@
 tải git về máy tính
 
-mở trình soạn code (vs code )  (1) click chọn terminal trên đầu chọn new ---> gõ git clone + đường dẫn github của dự án.
+mở trình soạn code (vd: vs code )  (1) click chọn terminal trên đầu chọn new ---> gõ git clone + đường dẫn github của dự án.
+nếu downlaod zip(clone) thì bỏ qua bước gõ git clone + đường dẫn github của dự án thực hiện mở trình soạn thảo tiếp tục bước (1)-->
  (1) sau khi tải bản clone về rồi thì tiếp tục gõ  npm install | 
 (2)tiếp tục chuộc phải vào thư mục có tên nodejs-express click chọn open in integrated terminal gõ npm install|
 quay lại (1) trong cd đó gõ npm start  ( nếu chạy lên lỗi thì bạn cần import database vào csdl (mình dùng xamp)
