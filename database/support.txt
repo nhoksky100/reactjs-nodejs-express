@@ -1,3 +1,10 @@
+tải git về máy tính
+
+mở trình soạn code (vs code )  (1) click chọn terminal trên đầu chọn new ---> gõ git clone + đường dẫn github của dự án.
+ (1) sau khi tải bản clone về rồi thì tiếp tục gõ  npm install | 
+(2)tiếp tục chuộc phải vào thư mục có tên nodejs-express click chọn open in integrated terminal gõ npm install|
+quay lại (1) trong cd đó gõ npm start  ( nếu chạy lên lỗi thì bạn cần import database vào csdl (mình dùng xamp)
+
 kết nối xampp database PHPmyadmin
 tạo một database trong phpMyadmin trùng tên với file (.slq) database rồi inport vào
 mặc định file database  
@@ -7,9 +14,16 @@ mật khẩu để trống
 database : ishop_reactjs
 để sửa đổi cấu hình database bạn vào thư mục có tên nodejs-express--> routes-->index.js 
 
-cài đặt modules cho reactjs chuột phải vào thư mục react-nodejs chọn open in integrated terminal --> gõ npm install
-cài đặt modules cho nodejs tương tự vào thư mục react-nodejs-> chuột phải vào thư mục nodejs-express chọn open in integrated terminal --> gõ npm install
+
 
 đăng nhập vào trình quản lý admin http://localhost:3000/login-manager
 tài khoản admin : nhoksky91 | 540282
 tài khoản admin 2: nhoksky3 | 991531 
+paypal bạn cần có tài khoản để lập tài khoản text vào đăng nhập mua hàng nhé ( google có hướng dẫn )
+
+mọi thắc mắc liên hệ qua email nhoksky100@gmail.com
+
+
+
+
+
