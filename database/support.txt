@@ -1,10 +1,18 @@
-tải git về máy tính
+sau khi tải về giải nén :
+-Nếu bạn giải nén extract file:
+(1) Mở folder đó bằng trình soạn code(vd: vs code) sau đó chuột phải vào tên folder reactjs-nodejs-express-main chọn 
+ open in integrated terminal gõ npm install --> npm start (chưa kết nối csdl thì không được) 
 
-mở trình soạn code (vd: vs code )  (1) click chọn terminal trên đầu chọn new ---> gõ git clone + đường dẫn github của dự án.
-nếu downlaod zip(clone) thì bỏ qua bước gõ git clone + đường dẫn github của dự án thực hiện mở trình soạn thảo tiếp tục bước (1)-->
- (1) sau khi tải bản clone về rồi thì tiếp tục gõ  npm install | 
-(2)tiếp tục chuộc phải vào thư mục có tên nodejs-express click chọn open in integrated terminal gõ npm install|
-quay lại (1) trong cd đó gõ npm start  ( nếu chạy lên lỗi thì bạn cần import database vào csdl (mình dùng xamp)
+(2) Trong folder reactjs-nodejs-express-main chuột phải vào nodejs-express chọn 
+ open in integrated terminal gõ npm install --> npm start (chưa kết nối csdl thì không được) 
+
+- Nếu bạn giải nén extract here:
++ Mở trình soạn thảo code (vd:vs code) mở folder reactjs-nodejs-express-main  -->
+chọn terminal new (nằm phía trên trình soạn thảo) --->gõ npm install -->npm start 
+tiếp tục mục (2)
+ 
+-Kết nối database:
+trong folder database có file sql (.slq) bạn import vào csdl (mình dùng xamp nếu bạn dùng cái khác thì đổi lại kết nối)
 
 kết nối xampp database PHPmyadmin
 tạo một database trong phpMyadmin trùng tên với file (.slq) database rồi inport vào
@@ -23,8 +31,3 @@ tài khoản admin 2: nhoksky3 | 991531
 paypal bạn cần có tài khoản để lập tài khoản text vào đăng nhập mua hàng nhé ( google có hướng dẫn )
 
 mọi thắc mắc liên hệ qua email nhoksky100@gmail.com
-
-
-
-
-
