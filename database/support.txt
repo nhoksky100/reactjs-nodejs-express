@@ -22,6 +22,11 @@ user : reactuser
 mật khẩu để trống
 database : ishop_reactjs
 để sửa đổi cấu hình database bạn vào thư mục có tên nodejs-express--> routes-->index.js 
+link video cài đặt database và tải github về chạy:
+(VS code và nodejs bạn tự tải về cài đặt)
+https://drive.google.com/file/d/1mXdnxC-aTjT2qcRMHVJMiIMkX6OaiLVt/view?usp=drive_link
+cài đặt database ( xampp bạn tự cài đặt ) 
+https://drive.google.com/file/d/1I2ZzVNdI6QzZqZr3bUsaVnD_-hvi3pUy/view?usp=drive_link
 
 
 
