@@ -155,40 +155,46 @@ class CheckOut extends Component {
 
         var { profile, quantity, totalPrice, dataCart, note, currencyRate, currencyDefault } = this.props;
 
-        for (let i = 0; i < dataCart.length; i++) {
-            dataCheckOut[i] = {
-                id: dataCart[i].productId,
-                tradingCode: randomId(),
-                emailCustomer: profile.email,
-                nameCheckout: fullname,
-                emailCheckout: email,
-                phoneCheckout: phone,
-                addressCheckout: address,
-                city: city,
-                state: state,
-                zip: zip,
-                image: dataCart[i].image,
-                price: dataCart[i].price,
-                totalPrice: totalPrice,
-                totalPriceSingle: FormatNumber(
-                    ExChangeRate(quantity[i] * dataCart[i].price,
-                        currencyDefault, currencyRate
-                    )
-                ),
-                currencyRate: currencyRate ? currencyRate[0] : currencyDefault[0],
-                quantity: quantity[i],
-                color: dataCart[i].color,
-                note: note,
-                productSizes: dataCart[i].productSizes,
-                dayShipping: dataCart[i].dayShipping,
-                productName: dataCart[i].productName,
-                profile: profile.image,
-                statusPayment: statusPayment,
-                order: 'Chờ xử lý', //
-                transaction: 'Chờ xử lý', // 
-                statisticsKey: false, //
-                dateTime: new Date()
 
+        for (let i = 0; i < dataCart.length; i++) {
+            if (dataCart[i].productId !== null && typeof dataCart[i].productId === 'string') {
+                dataCheckOut[i] = {
+                    id: dataCart[i].productId,
+                    tradingCode: randomId(),
+                    emailCustomer: profile.email,
+                    nameCheckout: fullname,
+                    emailCheckout: email,
+                    phoneCheckout: phone,
+                    addressCheckout: address,
+                    city: city,
+                    state: state,
+                    zip: zip,
+                    image: dataCart[i].image,
+                    price: dataCart[i].price,
+                    totalPrice: totalPrice,
+                    totalPriceSingle: FormatNumber(
+                        ExChangeRate(quantity[i] * dataCart[i].price,
+                            currencyDefault, currencyRate
+                        )
+                    ),
+                    currencyRate: currencyRate ? currencyRate[0] : currencyDefault[0],
+                    quantity: quantity[i],
+                    color: dataCart[i].color,
+                    note: note,
+                    productSizes: dataCart[i].productSizes,
+                    dayShipping: dataCart[i].dayShipping,
+                    productName: dataCart[i].productName,
+                    profile: profile.image,
+                    statusPayment: statusPayment,
+                    order: 'Chờ xử lý', //
+                    transaction: 'Chờ xử lý', // 
+                    statisticsKey: false, //
+                    dateTime: new Date()
+
+                }
+            } else {
+                toast(<div className="advertise"><i className="fa fa-exclamation-triangle" aria-hidden="true" />
+                    <i>{dataCart[i].productName + t("product-does-not-exist")}!</i></div>)
             }
 
         }
@@ -331,7 +337,7 @@ class CheckOut extends Component {
         return (
             <Fragment>
                 {this.showForm()}
-              
+
                 {/* <LocationSearch /> */}
             </Fragment>
 
