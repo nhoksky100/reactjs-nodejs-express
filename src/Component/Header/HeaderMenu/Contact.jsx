@@ -16,7 +16,8 @@ class Contact extends Component {
             dataSupport: null,
             name: '', email: '', selectSupport: 'Product Support', noteSupport: '', dateTime: '', file: '', fileTemp: '', contactFileImage: '',
             // isDisabled
-            isDisabled: false
+            isDisabled: false,
+            countdown: 3,
         }
     }
 
@@ -33,7 +34,8 @@ class Contact extends Component {
     }
     componentDidMount() {
         if (!this.state.dataSupport) {
-            var email = JSON.parse(sessionStorage.getItem('tokenProfileCustomer')) ? JSON.parse(sessionStorage.getItem('tokenProfileCustomer')).email : ' ';
+            var email = JSON.parse(localStorage.getItem('tokenProfileCustomer')) ? JSON.parse(localStorage.getItem('tokenProfileCustomer')).email : ' ';
+
             dataSupport().then((res) => {
 
                 this.setState({
@@ -43,60 +45,89 @@ class Contact extends Component {
             })
         }
     }
+    sendFeedback = () => {
+        // Ngăn chặn việc click khi đã bắt đầu đếm ngược
+        if (this.state.isDisabled) {
+            return;
+        }
 
-    sendFeedBack = () => {
+        // Bắt đầu đếm ngược
+        this.setState({ isDisabled: true });
+        this.startCountdown();
+    };
+
+    startCountdown = () => {
+        const countdownInterval = setInterval(() => {
+            const newCountdown = this.state.countdown - 1;
+
+            if (newCountdown >= 0) {
+                this.setState({ countdown: newCountdown });
+            } else {
+                // Khi đếm ngược kết thúc, cập nhật trạng thái và hủy interval
+                this.setState({ isDisabled: false, countdown: 3 });
+                clearInterval(countdownInterval);
+
+                // Thực thi đoạn mã sau khi kết thúc đếm ngược
+                this.handleFeedbackExecution();
+            }
+        }, 1000);
+    };
+    handleFeedbackExecution = () => {
         var flag = false;
-        setTimeout(() => {
+        // setTimeout(() => {
 
 
-            if (this.state.dataSupport) {
-                this.state.dataSupport.map((value) => {
-                    //email block
-                    if (value.block === '0' && value.email === this.state.email) {
-                        this.isValue(t("email-blocked"))
-                        flag = true;
-                    }
-                    return this.state.dataSupport
-                })
-            }
-
-            if (!flag) {
-                //email feedback
-
-                this.clearForm()
-                var ID = randomId();
-                var { name, email, selectSupport, noteSupport, contactFileImage } = this.state;
-                if (!validator.isEmail(email)) {
-                    this.isValue(t("email-invalidate"))
-
+        if (this.state.dataSupport) {
+            this.state.dataSupport.map((value) => {
+                //email block
+                if (value.block === '0' && value.email === this.state.email) {
+                    this.isValue(t("email-blocked"))
+                    flag = true;
                 }
-                else if (name && email && noteSupport) {
-                    var dateTime = UpdateDateTime()
+                return this.state.dataSupport
+            })
+        }
+
+        if (!flag) {
+            //email feedback
 
 
-                    if (contactFileImage) {
-                        var formData = new FormData();
-                        formData.append("contactImage", this.state.file);
-                        const config = {
-                            headers: {
-                                'content-type': 'multipart/form-data'
-                            }
+            var ID = randomId();
+
+            var { name, email, selectSupport, noteSupport, contactFileImage } = this.state;
+         
+            if (!validator.isEmail(email)) {
+                this.isValue(t("email-invalidate"))
+
+            }
+            else if (name && email && noteSupport) {
+                var dateTime = UpdateDateTime()
+
+
+                if (contactFileImage) {
+                    var formData = new FormData();
+                    formData.append("contactImage", this.state.file);
+                    const config = {
+                        headers: {
+                            'content-type': 'multipart/form-data'
                         }
-                        axios.post('/contactImage', formData, config);
                     }
-
-                    axios.post('/support', { ID, name, email, dateTime, selectSupport, noteSupport, contactFileImage })
-                    this.isValue(t("email-sent-successfully"))
-                    this.isValue('', true)
-
-                } else {
-                    this.isValue(t("fields-cannot-be-left-blank") + '(*)')
-
+                    axios.post('/contactImage', formData, config);
                 }
+
+                axios.post('/support', { ID, name, email, dateTime, selectSupport, noteSupport, contactFileImage })
+                this.isValue(t("email-sent-successfully"))
+                this.isValue('', true)
+
+            } else {
+                this.isValue(t("fields-cannot-be-left-blank") + '(*)')
+
             }
-            this.setState({ isDisabled: false })
-        }, 4000);
-        this.setState({ isDisabled: true })
+            this.clearForm()
+        }
+        // this.setState({ isDisabled: false })
+        // }, 4000);
+        // this.setState({ isDisabled: true })
     }
     getFile = (event) => {
         // const ffile = e.target.files[0].name; // lay ten file
@@ -207,8 +238,17 @@ class Contact extends Component {
                                                     placeholder={t("tell-us-what's-wrong") + "(*)"} defaultValue={""} />
 
                                                 <div className="space" />
-                                                <div onClick={() => this.sendFeedBack()} className="btn-group  u-pull-right">
-                                                    <input disabled={this.state.isDisabled} type="button" role="send" value={t("footer-send")} />
+                                                <div  className="btn-group ">
+                                                    <div  style={{width:'100px'}} onClick={()=>this.sendFeedback()} className="btn-group ">
+                                                        <input
+                                                            disabled={this.state.isDisabled}
+                                                            type="button"
+                                                            role="send"
+                                                            className='sendMail'
+                                                            value={t("footer-send")}
+                                                            data-countdown={this.state.isDisabled ? `(${this.state.countdown})` : ''}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="space xlarge" />
@@ -223,11 +263,11 @@ class Contact extends Component {
         )
     }
     render() {
-      
+
         return (
             <Fragment>
                 {this.showForm()}
-               
+
 
             </Fragment>
         );
