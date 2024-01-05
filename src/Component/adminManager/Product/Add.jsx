@@ -96,7 +96,7 @@ class Add extends Component {
                     const filePath = res.data.fileNameInServer;
                     // list_image = Array.prototype.join.call(filePath); // tách 1 array => nhiều array
 
-                    listImage.push(filePath.slice(40)); // bỏ ký tự từ 0 ->14 và thêm nó vào vùng chứa chung 1 vùng
+                    listImage.push(filePath.slice(31)); // bỏ ký tự từ 0 ->8 và thêm nó vào vùng chứa chung 1 vùng
 
 
 
