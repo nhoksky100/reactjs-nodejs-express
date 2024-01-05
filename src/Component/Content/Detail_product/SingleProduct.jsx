@@ -345,8 +345,8 @@ class SingleProduct extends Component {
     //productSize option
     optionProductSize = (productSizes) => {
         var { indexPrice, isCapacity } = this.state
+        var pushSize = []
         if (productSizes !== undefined && productSizes !== 0 && productSizes !== null) {
-            var pushSize = []
             productSizes = productSizes.split('#')
 
             for (let i = 0; i < productSizes.length; i++) {
@@ -376,8 +376,8 @@ class SingleProduct extends Component {
         var { indexPrice, isCapacity } = this.state
 
 
+        var pushProductStorageCapacity = []
         if (productStorageCapacity !== undefined && productStorageCapacity !== 0 && productStorageCapacity !== null) {
-            var pushProductStorageCapacity = []
             productStorageCapacity = productStorageCapacity.split('#')
 
             for (let i = 0; i < productStorageCapacity.length; i++) {
@@ -419,10 +419,15 @@ class SingleProduct extends Component {
             var { currencyDefault, currencyRate } = this.props;
             var transportFee3 = FormatNumber(ExChangeRate(currencyDefault[1] * 2, currencyDefault, currencyRate)) // fee 2$
             var transportFee7 = FormatNumber(ExChangeRate(currencyDefault[1] * 1, currencyDefault, currencyRate)) // fee 2$
-
+            var image_list_clean = [],colors= ''
             return dataDatailProductSingle.map((value, key) => {
-                var image_list_clean = value.productImageList.split('-Arraylist') // list-image
-                var colors = value.colors !== null && value.colors !== '' ? value.colors.split(', ') : '';
+                if(value.productImageList && typeof  value.productImageList==='string'){
+                 image_list_clean = value.productImageList.split('-Arraylist') || []// list-image
+                }
+                //  colors = value.colors !== null && value.colors !== '' &&value.colors !==undefined ? value.colors.split(', ') : '';
+                if(value.colors && typeof  value.colors==='string'){
+                    colors =value.colors.split(', ')
+                }
                 // var starPoint = value.points_star.split(', ');
 
                 var starPoint = this.starPoint(value.points_star)
