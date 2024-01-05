@@ -1282,7 +1282,7 @@ router.post('/edit_product', function(req, res, next) {
     })
     // upload file product
 
-const imageUploaderProduct = multer({ dest: '../../public/admin/upload/product' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
+const imageUploaderProduct = multer({ dest: '../public/admin/upload/product' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
 router.post('/avatarProduct', imageUploaderProduct.single('avatarProduct'), (req, res) => {
     const processedFile = req.file || {}; // MULTER xử lý và gắn đối tượng FILE vào req
     //  console.log(processedFile);
