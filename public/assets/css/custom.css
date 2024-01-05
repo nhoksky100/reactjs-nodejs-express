@@ -747,6 +747,17 @@ footer .payment-icons>img {
 
 /* button send  */
 
+.sendMail::after {
+    content: attr(data-countdown);
+    display: inline-block;
+    margin-left: 5px;
+    /* Khoảng cách giữa nút và số đếm */
+    color: red;
+    /* Màu sắc của số đếm */
+    font-weight: bold;
+    /* Độ đậm của số đếm */
+}
+
 .u-pull-right {
     display: flex;
     justify-content: center;
