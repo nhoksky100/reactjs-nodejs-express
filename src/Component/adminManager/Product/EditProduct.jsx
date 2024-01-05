@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Redirect } from 'react-router-dom';
 import CKEditor from "react-ckeditor-component";
 import { FormatNumber } from '../../FormatNumber.jsx';
+// import { stringtoslug } from '../../stringtoslug.js';
 
 import 'react-toastify/dist/ReactToastify.css';
 import FormtitleArea from '../titleAreaFrom/FormtitleArea.jsx';
@@ -157,7 +158,7 @@ class EditProduct extends Component {
 
 
                 productImageList = imageListTemp; //cover
-
+              
                 axios.post('/edit_product', {
                     productId, productName, productAmount, productPrice, productComplatePrice, productDescribe, productImage, productImageList, productCategory,
                     productReducedPrice, productContent, productGuarantee, productCategoryCode, productTitle, productKeyword, dateTime, pushColors, productSizes,
@@ -198,10 +199,10 @@ class EditProduct extends Component {
                         // console.log('RES', res.data.fileNameInServer);
                         var filePath = res.data.fileNameInServer;
 
-                        // list_image = Array.prototype.join.call(filePath); // tách 1 array => nhiều array
-
-                        listImage.push(filePath.slice(40)); // bỏ ký tự từ 0 ->14 và thêm nó vào vùng chứa chung 1 vùng
-
+                        let list_image = Array.prototype.join.call(filePath); // tách 1 array => nhiều array
+                        
+                        listImage.push(filePath.slice(31)); // bỏ ký tự từ 0 ->14 và thêm nó vào vùng chứa chung 1 vùng
+                      
                         if (i === count - 1) {
 
                             this.setState({
@@ -269,12 +270,12 @@ class EditProduct extends Component {
 
         if (productSizes !== prevState.productSizes) {
             pushSize[index] = productSizes
-            console.log(pushSize, 'pushSize');
+            // console.log(pushSize, 'pushSize');
             this.setState({ pushSize: pushSize })
         }
         if (productStorageCapacity !== prevState.productStorageCapacity) {
             productStorageCapacitys[index] = productStorageCapacity
-            console.log(productStorageCapacitys);
+            // console.log(productStorageCapacitys);
             this.setState({ productStorageCapacitys: productStorageCapacitys })
         }
 
@@ -471,7 +472,8 @@ class EditProduct extends Component {
             this.setState({ flagImageList: true })
             // }
             for (let i = 0; i < files.length; i++) {
-
+                // files[i] =stringtoslug(files[i]) 
+               
                 pushFile.push(files[i])
 
                 reader[i] = new FileReader();
@@ -480,7 +482,9 @@ class EditProduct extends Component {
                 reader[i].onloadend = function (e) {
                     // console.log([reader[i].result]);
                     arpush.push([reader[i].result]);
+                  
 
+                  
                     this.setState({
                         listFile: arpush,
                         productImageList: pushFile,
@@ -505,7 +509,7 @@ class EditProduct extends Component {
 
         // console.log(this.state.list_file);
         if (this.state.productImageList[0] !== undefined) {
-
+           
             for (let i = 0; i < this.state.listFile.length; i++) {
                 return this.state.listFile.map((value, key) => {
                     return <img className='url_img_product' src={value} key={key} alt='' />
@@ -514,13 +518,17 @@ class EditProduct extends Component {
         } //end if
         else {
             //show hình ảnh khi đã click edit
-
-            var split_str = productImageList.split("-Arraylist");
+            var split_str = []
+            if (productImageList && typeof productImageList === 'string') {
+                split_str = productImageList.split('-Arraylist')// list-image
+            }
+            // console.log(split_str, 'split_str');
 
             return split_str.map((item_img, key) => {
+                // item_img=  stringtoslug(item_img)
                 if (item_img !== undefined) {
-
-                    return <img className='url_img_product' src={'upload/product/' + item_img} key={key} alt={''} title={item_img} />
+                    // console.log(item_img, 'item_img');
+                    return <img className='url_img_product' src={'../admin/upload/product/' + item_img} key={key} alt={''} title={item_img} />
                 }
                 return split_str
             });
@@ -776,7 +784,7 @@ class EditProduct extends Component {
     showEdit = () => {
 
         if (this.state.dataEdit !== null) {
-
+            
             return this.state.dataEdit.map((value, key) => {
 
 
