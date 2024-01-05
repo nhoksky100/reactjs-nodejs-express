@@ -205,7 +205,7 @@ class CategoryProductSmartphone extends Component {
     showProduct = () => {
         // var { parth_slug, category } = this.props;
         if (this.state.dataProduct !== null) {
-            console.log(this.state.dataProduct);
+           // console.log(this.state.dataProduct);
             var { currencyDefault, currencyRate } = this.props;
             return (
                 <InfiniteScroll
