@@ -855,7 +855,7 @@ router.post('/add_blog', function(req, res, next) {
         })
 });
 // add blog
-const imageUploader_blog = multer({ dest: '../../public/admin/upload/news' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
+const imageUploader_blog = multer({ dest: '../public/admin/upload/news' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
 router.post('/news', imageUploader_blog.single('news'), (req, res) => {
     const processedFileBlog = req.file || {}; // MULTER xử lý và gắn đối tượng FILE vào req
     //  console.log(processedFile);
@@ -894,7 +894,7 @@ router.post('/add_pages', function(req, res, next) {
         })
 });
 // add upload slide pages
-const uploader_pages = multer({ dest: '../../public/admin/upload/pages' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
+const uploader_pages = multer({ dest: '../public/admin/upload/pages' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
 router.post('/page', uploader_pages.single('page'), (req, res) => {
     const processedFilePages = req.file || {}; // MULTER xử lý và gắn đối tượng FILE vào req
     //  console.log(processedFile);
@@ -962,7 +962,7 @@ router.post('/support', function(req, res, next) {
 });
 // add contact support 
 
-const imageUploader_contact = multer({ dest: '../../public/admin/upload/supportImage' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
+const imageUploader_contact = multer({ dest: '../public/admin/upload/supportImage' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
 router.post('/contactImage', imageUploader_contact.single('contactImage'), (req, res) => {
     const processedFile = req.file || {}; // MULTER xử lý và gắn đối tượng FILE vào req
     //  console.log(processedFile);
@@ -1003,7 +1003,7 @@ router.post('/add_slide', function(req, res, next) {
         })
 });
 // add slide
-const imageUploader_slide = multer({ dest: '../../public/admin/upload/slide' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
+const imageUploader_slide = multer({ dest: '../public/admin/upload/slide' }); // (**) // tao ra 1 thư mục chứa file or nếu có sẳn file chứa bỏ vào
 router.post('/slide', imageUploader_slide.single('slide'), (req, res) => {
     const processedFile = req.file || {}; // MULTER xử lý và gắn đối tượng FILE vào req
     //  console.log(processedFile);
