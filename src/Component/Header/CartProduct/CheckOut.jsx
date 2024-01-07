@@ -26,6 +26,7 @@ class CheckOut extends Component {
             fullname: '', email: '', phone: '', address: '', city: '', state: ' ', zip: ' ',
             //check payment
             statusPayment: false,
+            dataCheckOut: []
 
         }
     }
@@ -41,9 +42,20 @@ class CheckOut extends Component {
 
             })
         }
-
+        this.loadData();
     }
-
+    loadData() {
+        this.dataCheckOutPort()
+            .then(dataCheckOut => {
+                // Xử lý dữ liệu ở đây khi promise được giải quyết thành công
+                this.setState({ dataCheckOut: dataCheckOut })
+                // console.log(dataCheckOut);
+            })
+            .catch(error => {
+                // Xử lý lỗi ở đây khi promise bị reject
+                console.error(error);
+            });
+    }
     onChangeValue = (e) => {
         // if (typingtimeoutRef.current) {
         //     clearTimeout(typingtimeoutRef.current)
@@ -54,24 +66,11 @@ class CheckOut extends Component {
         this.setState({ [name]: value })
         // }, 300);
     }
-    // // change auto map
-    // handleInputChange = (event) => {
-    //     const value = event.target.value;
-    //     this.setState({ inputValue: value });
-
-    //     // Gửi yêu cầu tới API khi người dùng nhập vào ô tìm kiếm
-    //     axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=restaurant&name=harbour&key=AIzaSyCMST7WB3_rS_kPKqvjqnDry-nUrgN5bd4`)
-    //         .then((response) => {
-    //             // Xử lý kết quả trả về từ API và cập nhật state places
-    //             this.setState({ places: response.data.results });
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // };
+  
     //checkbox 
     radioBeforePayment = () => {
-        var dataCheckOut = this.dataCheckOut();
+        let { dataCheckOut } = this.state
+
         if (dataCheckOut.length > 0) {
 
 
@@ -92,7 +91,8 @@ class CheckOut extends Component {
         }
     }
     radioPaypalPayment = () => {
-        var dataCheckOut = this.dataCheckOut();
+        let { dataCheckOut } = this.state
+        console.log(dataCheckOut,'dataCheckOut');
         if (dataCheckOut.length > 0) {
             var { address, city, phone, email } = this.state;
             if (address !== '' && city !== '' && phone !== '' && email !== '') {
@@ -149,62 +149,67 @@ class CheckOut extends Component {
     //         )
     //     }
     // }
-    dataCheckOut = () => {
-        var dataCheckOut = [];
-        var { fullname, email, phone, address, city, state, zip, statusPayment } = this.state;
+    dataCheckOutPort = () => {
+        return new Promise((resolve, reject) => {
+            try {
+                var dataCheckOut = [];
+                var { fullname, email, phone, address, city, state, zip, statusPayment } = this.state;
 
-        var { profile, quantity, totalPrice, dataCart, note, currencyRate, currencyDefault } = this.props;
+                var { profile, quantity, totalPrice, dataCart, note, currencyRate, currencyDefault } = this.props;
+               
+                for (let i = 0; i < dataCart.length; i++) {
+                    if (dataCart[i]!==undefined) {
+                        dataCheckOut[i] = {
+                            id: dataCart[i].productId,
+                            tradingCode: randomId(),
+                            emailCustomer: profile.email,
+                            nameCheckout: fullname,
+                            emailCheckout: email,
+                            phoneCheckout: phone,
+                            addressCheckout: address,
+                            city: city,
+                            state: state,
+                            zip: zip,
+                            image: dataCart[i].image,
+                            price: dataCart[i].price,
+                            totalPrice: totalPrice,
+                            totalPriceSingle: FormatNumber(
+                                ExChangeRate(quantity[i] * dataCart[i].price,
+                                    currencyDefault, currencyRate
+                                )
+                            ),
+                            currencyRate: currencyRate ? currencyRate[0] : currencyDefault[0],
+                            quantity: quantity[i],
+                            color: dataCart[i].color,
+                            note: note,
+                            productSizes: dataCart[i].productSizes,
+                            dayShipping: dataCart[i].dayShipping,
+                            productName: dataCart[i].productName,
+                            profile: profile.image,
+                            statusPayment: statusPayment,
+                            order: 'Chờ xử lý', //
+                            transaction: 'Chờ xử lý', // 
+                            statisticsKey: false, //
+                            dateTime: new Date()
 
-
-        for (let i = 0; i < dataCart.length; i++) {
-            if (dataCart[i].productId !== null && typeof dataCart[i].productId === 'string') {
-                dataCheckOut[i] = {
-                    id: dataCart[i].productId,
-                    tradingCode: randomId(),
-                    emailCustomer: profile.email,
-                    nameCheckout: fullname,
-                    emailCheckout: email,
-                    phoneCheckout: phone,
-                    addressCheckout: address,
-                    city: city,
-                    state: state,
-                    zip: zip,
-                    image: dataCart[i].image,
-                    price: dataCart[i].price,
-                    totalPrice: totalPrice,
-                    totalPriceSingle: FormatNumber(
-                        ExChangeRate(quantity[i] * dataCart[i].price,
-                            currencyDefault, currencyRate
-                        )
-                    ),
-                    currencyRate: currencyRate ? currencyRate[0] : currencyDefault[0],
-                    quantity: quantity[i],
-                    color: dataCart[i].color,
-                    note: note,
-                    productSizes: dataCart[i].productSizes,
-                    dayShipping: dataCart[i].dayShipping,
-                    productName: dataCart[i].productName,
-                    profile: profile.image,
-                    statusPayment: statusPayment,
-                    order: 'Chờ xử lý', //
-                    transaction: 'Chờ xử lý', // 
-                    statisticsKey: false, //
-                    dateTime: new Date()
+                        }
+                    }
 
                 }
-            } else {
-                toast(<div className="advertise"><i className="fa fa-exclamation-triangle" aria-hidden="true" />
-                    <i>{dataCart[i].productName + t("product-does-not-exist")}!</i></div>)
+                resolve(dataCheckOut);
+            } catch (error) {
+                reject(error);
             }
-
-        }
-        return dataCheckOut;
+        });
+        // return dataCheckOut;
 
     }
     //check out
     checkOut = () => {
-        var dataCheckOut = this.dataCheckOut();
+        let { dataCheckOut } = this.state
+
         //code payment
+
         if (this.props.dataCart.length !== 0) {
 
             var { email, phone, address, city, statusPayment } = this.state;
@@ -249,7 +254,7 @@ class CheckOut extends Component {
 
     }
     showForm = () => {
-        var dataCheckOut = this.dataCheckOut();
+        let { dataCheckOut } = this.state
 
 
         return (
