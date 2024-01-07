@@ -286,6 +286,9 @@ class Sales extends Component {
                     <i>Tải dữ liệu API dateTime thành công</i>
                 </div>
             )
+            setTimeout(() => {
+                    window.location.reload()
+            }, 1500);
         }
     }
 
